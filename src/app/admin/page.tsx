@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Save, Plus, RefreshCw } from "lucide-react";
+import { Save, Plus, RefreshCw, Rocket } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
@@ -90,6 +90,7 @@ export default function AdminPage() {
   const [post, setPost] = useState<EditablePost>(emptyPost);
   const [tagInput, setTagInput] = useState("");
   const [message, setMessage] = useState("");
+  const [isDeploying, setIsDeploying] = useState(false);
   const [slugTouched, setSlugTouched] = useState(false);
   const previewHref = useMemo(() => (post.slug ? `/blog/${post.slug}` : "/blog"), [post.slug]);
   const freeCodeBlocks = useMemo(() => getFreeCodeBlocks(post.content), [post.content]);
@@ -194,6 +195,21 @@ export default function AdminPage() {
     setMessage(data.ok ? "저장했습니다. 블로그 페이지를 새로고침해 확인하세요." : data.message);
     if (data.ok) {
       await loadPosts();
+    }
+  }
+
+  async function deploySite() {
+    setIsDeploying(true);
+    setMessage("GitHub에 올리는 중입니다. 이 작업은 잠시 걸릴 수 있어요...");
+
+    try {
+      const response = await fetch("/api/admin/deploy", { method: "POST" });
+      const data = await response.json();
+      setMessage(data.ok ? data.message : `${data.message} ${data.detail ?? ""}`);
+    } catch {
+      setMessage("자동 배포 요청에 실패했습니다. GitHub Desktop으로 Commit/Push를 해주세요.");
+    } finally {
+      setIsDeploying(false);
     }
   }
 
@@ -476,6 +492,9 @@ export default function AdminPage() {
             <div className="flex flex-wrap gap-2">
               <Button onClick={savePost}>
                 <Save className="h-4 w-4" /> 저장
+              </Button>
+              <Button type="button" variant="dark" onClick={deploySite} disabled={isDeploying}>
+                <Rocket className="h-4 w-4" /> {isDeploying ? "배포 중..." : "배포하기"}
               </Button>
               <Button type="button" variant="outline" onClick={openPreviewPage}>새 페이지 미리보기</Button>
               <Link href={previewHref} target="_blank" className={cn(buttonVariants({ variant: "outline" }))}>글 보기</Link>
