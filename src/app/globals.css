@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Pretendard Variable", "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+  --background: 0 0% 99%;
+  --foreground: 255 18% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 255 18% 16%;
+  --primary: 342 72% 61%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 269 38% 94%;
+  --secondary-foreground: 272 34% 31%;
+  --muted: 32 24% 96%;
+  --muted-foreground: 258 9% 42%;
+  --accent: 19 64% 92%;
+  --accent-foreground: 16 42% 31%;
+  --border: 28 22% 88%;
+  --input: 28 22% 88%;
+  --ring: 342 72% 61%;
+}
+
+.dark {
+  --background: 258 18% 9%;
+  --foreground: 36 36% 94%;
+  --card: 258 16% 12%;
+  --card-foreground: 36 36% 94%;
+  --primary: 342 72% 68%;
+  --primary-foreground: 260 20% 10%;
+  --secondary: 269 24% 21%;
+  --secondary-foreground: 276 42% 86%;
+  --muted: 258 12% 17%;
+  --muted-foreground: 34 18% 72%;
+  --accent: 20 30% 22%;
+  --accent-foreground: 20 62% 86%;
+  --border: 258 12% 23%;
+  --input: 258 12% 23%;
+  --ring: 342 72% 68%;
+}
+
+* {
+  @apply border-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "kern", "rlig";
+  word-break: keep-all;
+  text-rendering: geometricPrecision;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+p,
+li {
+  line-height: 1.75;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: hsl(var(--primary) / 0.18);
+}
+
+.container-narrow {
+  @apply mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8;
+}
+
+.prose-brand {
+  @apply max-w-none;
+}
+
+.prose-brand > * + * {
+  margin-top: 1.25rem;
+}
+
+.prose-brand h2,
+.prose-brand h3 {
+  scroll-margin-top: 6rem;
+}
+
+.prose-brand a {
+  color: hsl(var(--primary));
+  font-weight: 700;
+}
+
+.prose-brand img {
+  border-radius: 8px;
+  height: auto;
+  max-width: 100%;
+}
+
+.prose-brand code {
+  border-radius: 4px;
+  background: hsl(var(--muted));
+  padding: 0.1rem 0.3rem;
+  font-size: 0.9em;
+}
+
+.prose-brand pre code {
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.motion-soft {
+  animation: motion-soft 0.55s ease both;
+}
+
+@keyframes motion-soft {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
