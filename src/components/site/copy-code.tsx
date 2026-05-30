@@ -26,7 +26,7 @@ export function CopyCode({ children, flush = false }: { children: React.ReactNod
   }
 
   return (
-    <div className={flush ? "relative overflow-hidden bg-[#1e1e1e] text-[#dcdcdc]" : "relative my-10 mx-auto max-w-[800px] overflow-hidden rounded-[14px] border border-[#ddd] bg-[#1e1e1e] text-[#dcdcdc] shadow-[0_8px_25px_rgba(0,0,0,0.15)]"}>
+    <div className={flush ? "relative overflow-hidden bg-[#1e1e1e] text-[#dcdcdc]" : "relative my-10 mx-auto max-w-[860px] overflow-hidden rounded-[14px] border border-[#ddd] bg-[#1e1e1e] text-[#dcdcdc] shadow-[0_8px_25px_rgba(0,0,0,0.15)]"}>
       <div className="flex flex-wrap items-center justify-between gap-3 bg-[linear-gradient(135deg,#667eea,#764ba2)] px-5 py-3.5 text-white">
         <span className="text-sm font-semibold">📌 무료 코드 보기</span>
         <div className="flex items-center gap-2">
