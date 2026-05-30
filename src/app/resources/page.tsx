@@ -27,14 +27,14 @@ export default function ResourcesPage() {
 
       <section>
         <h2 className="mb-4 text-2xl font-bold">다운로드 자료</h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
           {resources.map((item) => (
             <Card key={item.title}>
-              <CardContent className="p-5">
+              <CardContent className="p-2 sm:p-5">
                 <Badge>{item.type}</Badge>
-                <h3 className="mt-3 text-xl font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
-                <a href={item.href} className={cn(buttonVariants({ variant: "outline" }), "mt-5 w-full")}>
+                <h3 className="mt-2 line-clamp-2 text-sm font-bold sm:mt-3 sm:text-xl">{item.title}</h3>
+                <p className="mt-2 hidden text-sm text-muted-foreground sm:block">{item.description}</p>
+                <a href={item.href} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "mt-3 w-full px-2 text-xs sm:mt-5 sm:h-11 sm:text-sm")}>
                   <Download className="h-4 w-4" /> 다운로드
                 </a>
               </CardContent>
@@ -48,23 +48,23 @@ export default function ResourcesPage() {
         <p className="mt-2 text-sm text-muted-foreground">
           프리미엄 프롬프트는 잠긴 상태로 미리보기만 제공되고, 상세 페이지에서 구매 버튼을 확인할 수 있습니다.
         </p>
-        <div className="mt-6 grid grid-cols-1 gap-5 min-[560px]:grid-cols-2 min-[660px]:grid-cols-3">
+        <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-5">
           {paidPrompts.map((item) => (
             <Link key={item.id} href={`/resources/paid/${item.id}`} className="group overflow-hidden rounded-lg border bg-card transition hover:-translate-y-0.5 hover:shadow-lg">
               <div className="relative aspect-square bg-muted">
-                <Image src={item.cover || "/blog/jpeg-1780059860142-1780065073500.webp"} alt="" fill className="object-cover" sizes="(min-width: 1024px) 33vw, 100vw" />
+                <Image src={item.cover || "/blog/jpeg-1780059860142-1780065073500.webp"} alt="" fill className="object-cover" sizes="33vw" />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/35 opacity-95">
-                  <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#201827]">
-                    <LockKeyhole className="h-4 w-4 text-primary" />
+                  <div className="flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[10px] font-bold text-[#201827] sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                    <LockKeyhole className="h-3 w-3 text-primary sm:h-4 sm:w-4" />
                     잠긴 유료 코드
                   </div>
                 </div>
               </div>
-              <div className="p-5">
+              <div className="p-2 sm:p-5">
                 <Badge>유료 코드</Badge>
-                <h3 className="mt-3 line-clamp-2 text-xl font-extrabold">{item.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
-                <p className="mt-4 text-lg font-extrabold text-primary">{item.price}</p>
+                <h3 className="mt-2 line-clamp-2 text-sm font-extrabold sm:mt-3 sm:text-xl">{item.title}</h3>
+                <p className="mt-2 hidden line-clamp-2 text-sm leading-6 text-muted-foreground sm:block">{item.description}</p>
+                <p className="mt-2 text-sm font-extrabold text-primary sm:mt-4 sm:text-lg">{item.price}</p>
               </div>
             </Link>
           ))}
@@ -76,11 +76,11 @@ export default function ResourcesPage() {
         <p className="mt-2 text-sm text-muted-foreground">
           블로그 글에 <code>```text</code>로 작성한 무료 프롬프트가 자동으로 추가됩니다.
         </p>
-        <div className="mt-6 grid grid-cols-1 gap-5 min-[560px]:grid-cols-2 min-[660px]:grid-cols-3">
+        <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-5">
           {freeCodes.map((item) => (
             <article key={item.id} className="overflow-hidden rounded-lg border bg-card">
               <div className="relative aspect-square bg-muted">
-                <Image src={item.cover} alt="" fill className="object-cover" sizes="(min-width: 1024px) 33vw, 100vw" />
+                <Image src={item.cover} alt="" fill className="object-cover" sizes="33vw" />
               </div>
               <CopyCode flush>{item.code}</CopyCode>
               <div className="mx-5 mb-5 mt-4 border-t pt-4">
