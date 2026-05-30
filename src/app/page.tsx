@@ -35,7 +35,7 @@ export default function HomePage() {
 
       <section className="container-narrow py-8">
         <SectionHeading eyebrow="Latest" title="최신 블로그 글" description="MDX 파일을 추가하면 이 목록과 RSS, 사이트맵이 함께 갱신됩니다." />
-        <div className="grid grid-cols-1 gap-4 min-[560px]:grid-cols-2 min-[660px]:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
           {posts.slice(0, 9).map((post) => <PostCard key={post.slug} post={post} />)}
         </div>
       </section>
