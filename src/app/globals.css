@@ -85,7 +85,7 @@ select {
 }
 
 .prose-brand {
-  @apply max-w-none;
+  @apply mx-auto w-full max-w-[800px];
 }
 
 .prose-brand > * + * {
