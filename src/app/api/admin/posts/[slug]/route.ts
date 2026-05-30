@@ -42,3 +42,21 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
     }
   });
 }
+
+export async function DELETE(_request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  if (!isSafeSlug(slug)) {
+    return NextResponse.json({ ok: false, message: "올바르지 않은 글 주소입니다." }, { status: 400 });
+  }
+
+  const filePath = path.join(postsDirectory, `${slug}.mdx`);
+
+  if (!fs.existsSync(filePath)) {
+    return NextResponse.json({ ok: false, message: "삭제할 글을 찾을 수 없습니다." }, { status: 404 });
+  }
+
+  fs.unlinkSync(filePath);
+
+  return NextResponse.json({ ok: true, slug });
+}

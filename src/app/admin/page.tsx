@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Save, Plus, RefreshCw, Rocket, ImagePlus } from "lucide-react";
+import { Save, Plus, RefreshCw, Rocket, ImagePlus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
@@ -197,6 +197,30 @@ export default function AdminPage() {
     setMessage(data.ok ? "저장했습니다. 블로그 페이지를 새로고침해 확인하세요." : data.message);
     if (data.ok) {
       await loadPosts();
+    }
+  }
+
+  async function deletePost() {
+    if (!post.slug) {
+      setMessage("삭제할 글을 먼저 선택해 주세요.");
+      return;
+    }
+
+    const confirmed = window.confirm(`정말 이 글을 삭제할까요?\n\n${post.title || post.slug}\n\n삭제 후에는 저장된 글 파일이 사라집니다.`);
+    if (!confirmed) return;
+
+    setMessage("글을 삭제하는 중입니다...");
+    const response = await fetch(`/api/admin/posts/${post.slug}`, { method: "DELETE" });
+    const data = await response.json();
+
+    if (data.ok) {
+      setPost(emptyPost);
+      setTagInput("");
+      setSlugTouched(false);
+      setMessage("글을 삭제했습니다. 배포 사이트에도 반영하려면 배포하기를 눌러주세요.");
+      await loadPosts();
+    } else {
+      setMessage(data.message ?? "글 삭제에 실패했습니다.");
     }
   }
 
@@ -540,6 +564,9 @@ export default function AdminPage() {
               </Button>
               <Button type="button" variant="dark" onClick={deploySite} disabled={isDeploying}>
                 <Rocket className="h-4 w-4" /> {isDeploying ? "배포 중..." : "배포하기"}
+              </Button>
+              <Button type="button" variant="outline" onClick={deletePost} className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700">
+                <Trash2 className="h-4 w-4" /> 글 삭제
               </Button>
               <Button type="button" variant="outline" onClick={openPreviewPage}>새 페이지 미리보기</Button>
               <Link href={previewHref} target="_blank" className={cn(buttonVariants({ variant: "outline" }))}>글 보기</Link>
