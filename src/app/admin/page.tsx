@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Save, Plus, RefreshCw, Rocket } from "lucide-react";
+import { Save, Plus, RefreshCw, Rocket, ImagePlus } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
@@ -92,6 +92,8 @@ export default function AdminPage() {
   const [message, setMessage] = useState("");
   const [isDeploying, setIsDeploying] = useState(false);
   const [slugTouched, setSlugTouched] = useState(false);
+  const contentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const inlineImageInputRef = useRef<HTMLInputElement | null>(null);
   const previewHref = useMemo(() => (post.slug ? `/blog/${post.slug}` : "/blog"), [post.slug]);
   const freeCodeBlocks = useMemo(() => getFreeCodeBlocks(post.content), [post.content]);
 
@@ -247,8 +249,8 @@ export default function AdminPage() {
     }
   }
 
-  function insertBodyTemplate(value: string) {
-    const textarea = document.getElementById("post-content") as HTMLTextAreaElement | null;
+  function insertTextAtCursor(value: string) {
+    const textarea = contentTextareaRef.current ?? (document.getElementById("post-content") as HTMLTextAreaElement | null);
     const start = textarea?.selectionStart ?? post.content.length;
     const end = textarea?.selectionEnd ?? post.content.length;
     const nextContent = `${post.content.slice(0, start)}${value}${post.content.slice(end)}`;
@@ -258,6 +260,28 @@ export default function AdminPage() {
       const cursor = start + value.length;
       textarea?.setSelectionRange(cursor, cursor);
     }, 0);
+  }
+
+  function insertBodyTemplate(value: string) {
+    insertTextAtCursor(value);
+  }
+
+  async function uploadInlineImage(file: File) {
+    setMessage("본문 이미지를 업로드하는 중입니다...");
+    const form = new FormData();
+    form.append("file", file);
+    const response = await fetch("/api/admin/upload", {
+      method: "POST",
+      body: form
+    });
+    const data = await response.json();
+    if (data.ok) {
+      const alt = file.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim() || "이미지";
+      insertTextAtCursor(`\n\n![${alt}](${data.path})\n\n`);
+      setMessage("본문 이미지를 현재 커서 위치에 넣었습니다. 최종 반영하려면 저장을 눌러주세요.");
+    } else {
+      setMessage(data.message ?? "본문 이미지 업로드에 실패했습니다.");
+    }
   }
 
   function openPreviewPage() {
@@ -436,8 +460,28 @@ export default function AdminPage() {
                     {template.label}
                   </Button>
                 ))}
+                <Button type="button" variant="outline" size="sm" onClick={() => inlineImageInputRef.current?.click()}>
+                  <ImagePlus className="h-4 w-4" /> 이미지 넣기
+                </Button>
+                <input
+                  ref={inlineImageInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    event.target.value = "";
+                    if (file) uploadInlineImage(file);
+                  }}
+                />
               </div>
-              <Textarea id="post-content" className="min-h-[520px] font-mono text-sm" value={post.content} onChange={(event) => setPost({ ...post, content: event.target.value })} />
+              <Textarea
+                ref={contentTextareaRef}
+                id="post-content"
+                className="min-h-[520px] font-mono text-sm"
+                value={post.content}
+                onChange={(event) => setPost({ ...post, content: event.target.value })}
+              />
             </label>
 
             {freeCodeBlocks.length ? (
