@@ -21,6 +21,7 @@ function safeFileName(name: string) {
 export async function POST(request: Request) {
   const form = await request.formData();
   const file = form.get("file");
+  const mode = String(form.get("mode") ?? "cover");
 
   if (!(file instanceof File)) {
     return NextResponse.json({ ok: false, message: "이미지 파일을 선택해 주세요." }, { status: 400 });
@@ -34,12 +35,17 @@ export async function POST(request: Request) {
 
   const fileName = safeFileName(file.name);
   const bytes = Buffer.from(await file.arrayBuffer());
-  const resized = await sharp(bytes)
-    .resize(860, 860, {
-      fit: "cover",
-      position: "center",
-      withoutEnlargement: false
-    })
+  const image = sharp(bytes);
+  const resized = await (mode === "inline"
+    ? image.resize({
+        width: 860,
+        withoutEnlargement: true
+      })
+    : image.resize(860, 860, {
+        fit: "cover",
+        position: "center",
+        withoutEnlargement: false
+      }))
     .webp({ quality: 88 })
     .toBuffer();
 

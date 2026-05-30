@@ -270,6 +270,7 @@ export default function AdminPage() {
     setMessage("본문 이미지를 업로드하는 중입니다...");
     const form = new FormData();
     form.append("file", file);
+    form.append("mode", "inline");
     const response = await fetch("/api/admin/upload", {
       method: "POST",
       body: form
