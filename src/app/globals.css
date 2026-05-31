@@ -216,15 +216,6 @@ select {
   animation: tip-bounce 480ms infinite alternate ease-in;
 }
 
-.prose-brand .tipbox::after {
-  content: "✅";
-  position: absolute;
-  left: 0.75rem;
-  top: -0.95rem;
-  z-index: 1;
-  font-size: 1.05rem;
-}
-
 .prose-brand .tipbox p {
   margin: 0;
   font-size: inherit;
@@ -287,11 +278,6 @@ select {
     min-width: 3.8rem;
     height: 1.8rem;
     font-size: 0.92rem;
-  }
-
-  .prose-brand .tipbox::after {
-    left: 0.6rem;
-    font-size: 0.95rem;
   }
 
   .prose-brand .tipbox-content {
