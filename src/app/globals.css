@@ -198,14 +198,14 @@ select {
 }
 
 .prose-brand .tipbox::before {
-  content: "예시";
+  content: "예시 프롬프트";
   position: absolute;
   left: 1.4rem;
   top: -1rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 4.4rem;
+  min-width: 7.4rem;
   height: 2rem;
   border-radius: 999px;
   background: #ffffff;
