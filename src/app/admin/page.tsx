@@ -80,6 +80,26 @@ const bodyTemplates = [
     value: "\n\n<PaidPrompt id=\"character-model-sheet\" />\n"
   },
   {
+    label: "초록 예시박스",
+    value: '\n\n<div className="custom-box">\n예시 내용을 여기에 작성하세요.\n</div>\n'
+  },
+  {
+    label: "핑크 예시박스",
+    value: '\n\n<div className="custom-box-1">\n예시 내용을 여기에 작성하세요.\n</div>\n'
+  },
+  {
+    label: "노랑 예시박스",
+    value: '\n\n<div className="custom-box-2">\n예시 내용을 여기에 작성하세요.\n</div>\n'
+  },
+  {
+    label: "회색 예시박스",
+    value: '\n\n<div className="custom-box-3">\n예시 내용을 여기에 작성하세요.\n</div>\n'
+  },
+  {
+    label: "파랑 예시박스",
+    value: '\n\n<div className="custom-box-4">\n예시 내용을 여기에 작성하세요.\n</div>\n'
+  },
+  {
     label: "이미지",
     value: "\n\n![이미지 설명](/blog/이미지파일.png)\n"
   }
