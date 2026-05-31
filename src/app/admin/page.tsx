@@ -100,8 +100,8 @@ const bodyTemplates = [
     value: '\n\n<div className="custom-box-4">\n예시 내용을 여기에 작성하세요.\n</div>\n'
   },
   {
-    label: "TIP 박스",
-    value: '\n\n<div className="tipbox">\n팁 내용을 여기에 작성하세요.\n</div>\n'
+    label: "예시 박스",
+    value: "\n\n<ExampleBox>\n예시 내용을 여기에 작성하세요.\n</ExampleBox>\n"
   },
   {
     label: "이미지",

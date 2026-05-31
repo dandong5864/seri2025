@@ -1,11 +1,13 @@
 import type { MDXComponents } from "mdx/types";
 import { ChatGPTButton } from "@/components/site/chatgpt-button";
 import { CopyCode } from "@/components/site/copy-code";
+import { ExampleBox } from "@/components/site/example-box";
 import { FlowButton } from "@/components/site/flow-button";
 import { PaidPrompt } from "@/components/site/paid-prompt";
 
 export const mdxComponents: MDXComponents = {
   ChatGPTButton,
+  ExampleBox,
   FlowButton,
   PaidPrompt,
   h2: (props) => (

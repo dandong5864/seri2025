@@ -182,7 +182,7 @@ select {
 .prose-brand .tipbox {
   position: relative;
   display: block;
-  width: min(100%, 700px);
+  width: min(100%, 860px);
   max-width: 100%;
   margin: 2rem 0 1.25rem;
   border: 4px solid #56a8cc;
@@ -193,12 +193,12 @@ select {
   font-size: 1.02rem;
   font-weight: 700;
   line-height: 1.8;
-  padding: 1.7rem 1.25rem 1.25rem;
+  padding: 1.9rem 1.25rem 1.25rem;
   text-align: left;
 }
 
 .prose-brand .tipbox::before {
-  content: "TIP";
+  content: "예시";
   position: absolute;
   left: 1.4rem;
   top: -1rem;
@@ -232,6 +232,34 @@ select {
   line-height: inherit;
 }
 
+.prose-brand .tipbox-content {
+  padding-right: 6rem;
+}
+
+.prose-brand .tipbox-copy {
+  position: absolute;
+  right: 1rem;
+  top: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  border-radius: 999px;
+  background: #56a8cc;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.55rem 0.8rem;
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.prose-brand .tipbox-copy:hover {
+  background: #2c91bf;
+  transform: translateY(-1px);
+}
+
 .dark .prose-brand .tipbox {
   background: #ffffff;
   color: #211b2d;
@@ -251,7 +279,7 @@ select {
     border-width: 3px;
     font-size: 0.95rem;
     margin-top: 1.8rem;
-    padding: 1.45rem 1rem 1rem;
+    padding: 3rem 1rem 1rem;
   }
 
   .prose-brand .tipbox::before {
@@ -264,6 +292,17 @@ select {
   .prose-brand .tipbox::after {
     left: 0.6rem;
     font-size: 0.95rem;
+  }
+
+  .prose-brand .tipbox-content {
+    padding-right: 0;
+  }
+
+  .prose-brand .tipbox-copy {
+    left: 1rem;
+    right: auto;
+    top: 1.15rem;
+    padding: 0.45rem 0.7rem;
   }
 }
 
