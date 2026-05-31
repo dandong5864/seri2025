@@ -100,40 +100,48 @@ select {
 .post-toc {
   width: min(100%, 860px);
   margin: 2rem auto 0;
-  border: 3px solid transparent;
-  border-radius: 8px;
-  background:
-    linear-gradient(#ffffff, #ffffff) padding-box,
-    linear-gradient(90deg, #ff4fa3, #f5a8df) border-box;
-  box-shadow: 0 16px 36px hsl(258 18% 16% / 0.08);
-  padding: 1.5rem 1.6rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+  background: #fffafa;
+  box-shadow: 0 2px 0 hsl(258 18% 16% / 0.12);
 }
 
 .post-toc h2 {
-  margin: 0 0 0.9rem;
-  color: hsl(var(--foreground));
-  font-size: 1.55rem;
+  margin: 0;
+  background: linear-gradient(90deg, #ef4b75, #f06c9f);
+  color: #ffffff;
+  font-size: 1.05rem;
   font-weight: 900;
   line-height: 1.25;
+  padding: 0.95rem 1.15rem;
+}
+
+.post-toc h2::before {
+  content: "☷";
+  margin-right: 0.45rem;
+  font-weight: 900;
 }
 
 .post-toc ul {
   margin: 0;
-  padding-left: 1.3rem;
+  padding: 1rem 1.35rem 1.1rem 2.25rem;
+  list-style: decimal;
+}
+
+.post-toc li::marker {
+  color: #ef4b75;
+  font-weight: 900;
 }
 
 .post-toc li + li {
-  margin-top: 0.55rem;
+  margin-top: 0.7rem;
 }
 
 .post-toc a {
-  background-image: linear-gradient(90deg, #ff4fa3, #f5a8df);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 2px;
-  color: hsl(var(--foreground));
-  font-size: 1.05rem;
-  font-weight: 800;
+  color: hsl(var(--muted-foreground));
+  font-size: 1rem;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -142,9 +150,7 @@ select {
 }
 
 .dark .post-toc {
-  background:
-    linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
-    linear-gradient(90deg, #ff4fa3, #f5a8df) border-box;
+  background: hsl(var(--card));
 }
 
 .prose-brand a {
