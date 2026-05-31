@@ -84,6 +84,24 @@ select {
   @apply mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8;
 }
 
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 60;
+  height: 4px;
+  background: hsl(var(--border) / 0.35);
+}
+
+.scroll-progress > div {
+  height: 100%;
+  border-radius: 0 999px 999px 0;
+  background: linear-gradient(90deg, #ef4b75, #f5a8df);
+  box-shadow: 0 0 14px hsl(342 72% 61% / 0.35);
+  transition: width 120ms ease-out;
+}
+
 .prose-brand {
   @apply mx-auto w-full max-w-[860px];
 }

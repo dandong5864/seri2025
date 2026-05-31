@@ -7,6 +7,7 @@ import { AdUnit } from "@/components/ads/ad-unit";
 import { Badge } from "@/components/ui/badge";
 import { mdxComponents } from "@/components/site/mdx-components";
 import { PostCard } from "@/components/site/post-card";
+import { ScrollProgress } from "@/components/site/scroll-progress";
 import { TableOfContents } from "@/components/site/table-of-contents";
 import { getAllPosts, getPostBySlug, getPostSlugs, getRelatedPosts, isPostPublished } from "@/lib/content";
 import { getTableOfContents } from "@/lib/toc";
@@ -68,6 +69,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <article className="container-narrow py-10">
+      <ScrollProgress />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <nav className="mb-6 text-sm text-muted-foreground">
         <Link href="/">홈</Link> / <Link href="/blog">블로그</Link> / {post.title}
