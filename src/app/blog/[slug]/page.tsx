@@ -7,7 +7,9 @@ import { AdUnit } from "@/components/ads/ad-unit";
 import { Badge } from "@/components/ui/badge";
 import { mdxComponents } from "@/components/site/mdx-components";
 import { PostCard } from "@/components/site/post-card";
+import { TableOfContents } from "@/components/site/table-of-contents";
 import { getAllPosts, getPostBySlug, getPostSlugs, getRelatedPosts, isPostPublished } from "@/lib/content";
+import { getTableOfContents } from "@/lib/toc";
 import { absoluteUrl, siteConfig } from "@/lib/utils";
 
 export const revalidate = 300;
@@ -51,6 +53,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getPostBySlug(slug);
   if (!isPostPublished(post)) notFound();
   const related = getRelatedPosts(post);
+  const toc = getTableOfContents(post.content);
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -79,6 +82,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <Image src={post.cover} alt="" width={1400} height={1400} className="h-auto w-full object-contain" priority />
       </div>
       <AdUnit slot="3333333333" />
+      <TableOfContents items={toc} />
       <div className="prose-brand mt-8">
         <MDXRemote source={post.content} components={mdxComponents} />
       </div>

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { MDXPreview } from "@/components/site/mdx-preview";
+import { TableOfContents } from "@/components/site/table-of-contents";
+import { getTableOfContents } from "@/lib/toc";
 
 type PreviewPost = {
   title: string;
@@ -16,6 +18,7 @@ type PreviewPost = {
 export default function AdminPreviewPage() {
   const [post, setPost] = useState<PreviewPost | null>(null);
   const [source, setSource] = useState<MDXRemoteSerializeResult | null>(null);
+  const toc = post ? getTableOfContents(post.content) : [];
 
   useEffect(() => {
     const raw = window.localStorage.getItem("seri-post-preview");
@@ -62,6 +65,7 @@ export default function AdminPreviewPage() {
       ) : null}
 
       <div className="prose-brand mt-8">
+        <TableOfContents items={toc} />
         {source ? <MDXPreview source={source} /> : <p className="text-muted-foreground">미리보기를 불러오는 중입니다.</p>}
       </div>
     </article>

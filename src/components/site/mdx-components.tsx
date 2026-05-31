@@ -4,6 +4,7 @@ import { CopyCode } from "@/components/site/copy-code";
 import { ExampleBox } from "@/components/site/example-box";
 import { FlowButton } from "@/components/site/flow-button";
 import { PaidPrompt } from "@/components/site/paid-prompt";
+import { createHeadingId, getTextFromReactNode } from "@/lib/toc";
 
 export const mdxComponents: MDXComponents = {
   ChatGPTButton,
@@ -12,6 +13,7 @@ export const mdxComponents: MDXComponents = {
   PaidPrompt,
   h2: (props) => (
     <h2
+      id={createHeadingId(getTextFromReactNode(props.children))}
       className="mt-12 rounded-br-[28px] rounded-tl-[28px] rounded-tr-sm bg-[linear-gradient(90deg,#ff4fa3,#f5a8df)] px-6 py-4 text-2xl font-bold text-white shadow-sm"
       {...props}
     />
